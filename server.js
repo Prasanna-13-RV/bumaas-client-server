@@ -59,4 +59,6 @@ app.delete('/forecast/:id', (req, res) => {
 	);
 });
 
-app.listen(8090, () => console.log('Server is running on port 8090'));
+app.listen(process.env.PORT, () =>
+	console.log('Server is running on port 8090')
+);
