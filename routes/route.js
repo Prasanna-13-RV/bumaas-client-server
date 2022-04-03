@@ -2,8 +2,9 @@ const express = require("express");
 const app = express();
 
 const router = express.Router();
-const {getProject,getSingleProject,getCustomer} = require("../controller/index");
+const {getProject,getSingleProject,getCustomer,getForecast} = require("../controller/index");
 router.get("/getproject/:customerid", getProject);
 router.get("/getcustomer/:email", getCustomer);
-router.get("/getproject/:customerid/:projectid", getSingleProject);
+router.get('/getforecast/:customer_id', getForecast);
+router.get("/getfore/:forecastid", getSingleProject);
 module.exports = router;

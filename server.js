@@ -18,7 +18,7 @@ app.get('/forecast', (req, res) => {
 	});
 });
 
-app.post('/forecast', (req, res) => {
+app.post('/forecast/:customer_id', (req, res) => {
 	const months = Object.keys(req.body).filter((key) =>
 		key.includes('forecast_month')
 	);
@@ -34,9 +34,9 @@ app.post('/forecast', (req, res) => {
 	const noOfMonths = months.length;
 
 	db.query(
-		'INSERT INTO forecast SET no_of_months = ?, project_name = ?, remarks = ?, months = ?',
-		[
-			noOfMonths,
+		'INSERT INTO forecast SET customer_id = ?, no_of_months = ?, project_name = ?, remarks = ?, months = ?',
+		[	req.params.customer_id,
+			noOfMonths,	
 			req.body.forecast_name,
 			req.body.remarks,
 			JSON.stringify(new Forecast())
