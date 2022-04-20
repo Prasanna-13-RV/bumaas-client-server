@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "pm2 start server.js && pm2 logs"
+		"start": "pm2 start server.js && pm2 logs",
+		"dev": "nodemon server.js"
 	},
 	"keywords": [],
 	"author": "",
