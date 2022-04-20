@@ -19,14 +19,14 @@ app.get('/forecast', (req, res) => {
 });
 
 app.post('/forecast/:customer_id', (req, res) => {
-	const months = Object.keys(req.body).filter((key) =>
+	const months = Object.keys(req.body.values).filter((key) =>
 		key.includes('forecast_month')
 	);
 
 	class Forecast {
 		constructor() {
 			months.forEach((month) => {
-				this[month] = req.body[month];
+				this[month] = req.body.values[month];
 			});
 		}
 	}
@@ -34,12 +34,13 @@ app.post('/forecast/:customer_id', (req, res) => {
 	const noOfMonths = months.length;
 
 	db.query(
-		'INSERT INTO forecast SET customer_id = ?, no_of_months = ?, project_name = ?, remarks = ?, months = ?',
+		'INSERT INTO forecast SET customer_id = ?, no_of_months = ?, project_name = ?, remarks = ?, months = ?, forecast_id = ?',
 		[	req.params.customer_id,
 			noOfMonths,	
-			req.body.forecast_name,
-			req.body.remarks,
-			JSON.stringify(new Forecast())
+			req.body.values.forecast_name,
+			req.body.values.remarks,
+			JSON.stringify(new Forecast()),
+			req.body.forecast_id
 		],
 		(err, results) => {
 			if (err) console.log(err);
